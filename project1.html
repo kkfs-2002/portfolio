@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Portfolio | Property Management Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Fixed Header with scroll effect */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(48, 42, 111, 0.9);
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(48, 42, 111, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            z-index: 1002;
+        }
+
+        .logo span {
+            color: #3498db;
+        }
+
+        /* Hamburger Menu Button */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1002;
+            background: none;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            font-size: 16px;
+            transition: 0.3s;
+            padding: 5px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #020f1d;
+            padding: 10px 0;
+            min-width: 180px;
+            display: none;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 999;
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #1e90ff;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 992px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(48, 42, 111, 0.98);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 100px 30px 30px;
+                transition: 0.5s ease;
+                z-index: 1001;
+                overflow-y: auto;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 0 0 20px 0;
+                width: 100%;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 10px 0;
+                font-size: 18px;
+                justify-content: space-between;
+            }
+
+            /* Dropdown for mobile */
+            .dropdown-menu {
+                position: static;
+                width: 100%;
+                background: rgba(2, 15, 29, 0.8);
+                box-shadow: none;
+                margin-top: 10px;
+                padding-left: 20px;
+                display: none;
+                border-radius: 5px;
+            }
+
+            .dropdown-menu.active {
+                display: block;
+            }
+
+            .dropdown:hover .dropdown-menu {
+                display: none;
+            }
+
+            .dropdown-menu li a {
+                padding: 8px 15px;
+                font-size: 16px;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            /* Overlay */
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 1000;
+            }
+
+            .overlay.active {
+                display: block;
+            }
+        }
+
+        /* Page Header / Banner */
+        .page-header {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(rgba(48, 42, 111, 0.8), rgba(48, 42, 111, 0.8)), 
+                        url('images/po.png') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            margin-top: 0;
+            padding-top: 100px;
+        }
+
+        .page-header .content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .page-header h1 {
+            font-size: 50px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .page-header .project-tag {
+            display: inline-block;
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .page-header p a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #fff;
+            padding-bottom: 3px;
+            transition: 0.3s;
+        }
+
+        .page-header p a:hover {
+            color: #3498db;
+            border-color: #3498db;
+        }
+
+        /* Project Details Section */
+        .project-details {
+            padding: 80px 0;
+            background-color: #010521;
+        }
+
+        .project-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Project Overview */
+        .project-overview {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .project-title h2 {
+            font-size: 32px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(52, 152, 219, 0.1);
+            padding: 15px 25px;
+            border-radius: 10px;
+            min-width: 120px;
+        }
+
+        .meta-label {
+            font-size: 14px;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* Project Description */
+        .project-description {
+            margin-bottom: 50px;
+        }
+
+        .description-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .main-description {
+            color: #e0e0e0;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .main-description p {
+            margin-bottom: 20px;
+        }
+
+        .main-description ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .main-description li {
+            margin-bottom: 10px;
+        }
+
+        .tech-stack {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .tech-stack h3 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 22px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(52, 152, 219, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateX(5px);
+        }
+
+        .tech-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(52, 152, 219, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3498db;
+            font-size: 20px;
+        }
+
+        .tech-name {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        /* Project Gallery */
+        .project-gallery {
+            margin-bottom: 50px;
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .gallery-header h3 {
+            font-size: 28px;
+            color: #ffffff;
+        }
+
+        .gallery-count {
+            color: #3498db;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay i {
+            color: white;
+            font-size: 30px;
+        }
+
+        .gallery-item.large {
+            grid-column: span 2;
+            height: 300px;
+        }
+
+        /* Project Video */
+        .project-video {
+            margin-bottom: 50px;
+        }
+
+        .video-container {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            background: rgba(52, 152, 219, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            background: #3498db;
+            transform: scale(1.1);
+        }
+
+        /* Features Section */
+        .project-features {
+            margin-bottom: 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(52, 152, 219, 0.1);
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(52, 152, 219, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #3498db;
+            font-size: 24px;
+        }
+
+        .feature-card h4 {
+            color: #ffffff;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #e0e0e0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Project Links */
+        .project-links-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+        }
+
+        .links-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .project-link-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 30px;
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .project-link-btn:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-5px);
+            border-color: #3498db;
+        }
+
+        .project-link-btn i {
+            font-size: 20px;
+        }
+
+        /* Navigation Buttons */
+        .project-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+        }
+
+        .nav-btn.prev i {
+            order: -1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000000;
+            color: #fff;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: #3498db;
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 18px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #3498db;
+            color: #fff;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #3a506b;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Quick Links - Two Columns */
+        .footer-links.two-column {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 30px;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .description-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item.large {
+                grid-column: span 1;
+            }
+            
+            .project-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .project-meta {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 0;
+            }
+            
+            .page-header {
+                height: 350px;
+                padding-top: 120px;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .project-title h2 {
+                font-size: 28px;
+            }
+            
+            .meta-item {
+                min-width: 100px;
+                padding: 10px 15px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .links-container {
+                flex-direction: column;
+            }
+            
+            .project-navigation {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .gallery-item, .gallery-item.large {
+                height: 200px;
+            }
+            
+            .play-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .page-header p {
+                font-size: 16px;
+            }
+            
+            .project-overview {
+                padding: 25px;
+            }
+            
+            .gallery-item, .gallery-item.large {
+                height: 180px;
+            }
+            
+            .meta-item {
+                flex: 1;
+                min-width: auto;
+                padding: 10px;
+            }
+            
+            .tech-item {
+                padding: 8px;
+            }
+            
+            .tech-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            
+            .project-link-btn, .nav-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Lightbox Modal */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            overflow: hidden;
+        }
+
+        .lightbox-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .lightbox-img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+
+        .lightbox-nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav-btn:hover {
+            background: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Portfolio<span>.</span></a>
+                
+                <!-- Hamburger Menu -->
+                <button class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="dropdown">
+                        <a href="#">Projects <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="project.html">Project</a></li>
+                            <li><a href="project1.html">Project 01</a></li>
+                            <li><a href="project2.html">Project 02</a></li>
+                            <li><a href="project3.html">Project 03</a></li>
+                            <li><a href="project4.html">Project 04</a></li>
+                             <li><a href="project5.html">Project 05</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="work-experience.html">Experience</a></li>
+                    <li><a href="education.html">Education</a></li>
+                    <li class="dropdown">
+                        <a href="#">Certifications <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="Certifications.html">Certifications</a></li>
+                            <li><a href="certification1.html">Certification 1</a></li>
+                            <li><a href="certification2.html">Certification 2</a></li>
+                            <li><a href="certification3.html">Certification 3</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="skills.html">Skills</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                
+                <!-- Overlay for mobile -->
+                <div class="overlay" id="overlay"></div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Rest of your HTML content remains the same -->
+    <!-- Hero Section -->
+    <section class="page-header">
+        <div class="content">
+            <span class="project-tag">Web Design Project</span>
+            <h1>Property Management Services Website</h1>
+            <p><a href="index.html">Home</a> > <a href="project.html">Projects</a> > Project 01</p>
+        </div>
+    </section>
+
+    <!-- Project Details Section -->
+    <section class="project-details">
+        <div class="container">
+            <div class="project-container">
+                <!-- Project Overview -->
+                <div class="project-overview">
+                    <div class="project-header">
+                        <div class="project-title">
+                            <h2>Project Overview</h2>
+                            <p style="color: #e0e0e0; margin-top: 10px;">A responsive property management website built with modern web technologies</p>
+                        </div>
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Category</span>
+                                <span class="meta-value">Web Design</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Year</span>
+                                <span class="meta-value">2024</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Status</span>
+                                <span class="meta-value">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Description -->
+                    <div class="project-description">
+                        <div class="description-content">
+                            <div class="main-description">
+                                <h3 style="color: #ffffff; margin-bottom: 20px; font-size: 24px;">About This Project</h3>
+                                <p>This project involved creating a fully responsive website for a property management company that specializes in luxury apartment rentals and property services. The website serves as a digital showcase for their properties while providing an intuitive user interface for potential clients.</p>
+                                
+                                <p>The main goal was to create a visually appealing platform that effectively displays property listings with detailed information, high-quality images, and easy navigation. The website needed to work seamlessly across all devices, from desktop computers to mobile phones.</p>
+                                
+                                <h4 style="color: #ffffff; margin: 25px 0 15px;">Key Objectives:</h4>
+                                <ul>
+                                    <li>Create responsive design that works on all screen sizes</li>
+                                    <li>Implement property filtering and search functionality</li>
+                                    <li>Design user-friendly contact forms with validation</li>
+                                    <li>Optimize images and content for fast loading times</li>
+                                    <li>Ensure accessibility and SEO best practices</li>
+                                </ul>
+                                
+                                <p>The project was completed within 3 weeks and received positive feedback from both the client and end-users for its clean design and smooth user experience.</p>
+                            </div>
+                            
+                            <div class="tech-stack">
+                                <h3>Technologies Used</h3>
+                                <div class="tech-list">
+                                    <div class="tech-item">
+                                        <div class="tech-icon">
+                                            <i class="fab fa-html5"></i>
+                                        </div>
+                                        <span class="tech-name">HTML5</span>
+                                    </div>
+                                    <div class="tech-item">
+                                        <div class="tech-icon">
+                                            <i class="fab fa-css3-alt"></i>
+                                        </div>
+                                        <span class="tech-name">CSS3</span>
+                                    </div>
+                                    <div class="tech-item">
+                                        <div class="tech-icon">
+                                            <i class="fab fa-js"></i>
+                                        </div>
+                                        <span class="tech-name">JavaScript</span>
+                                    </div>
+                                    <div class="tech-item">
+                                        <div class="tech-icon">
+                                            <i class="fab fa-bootstrap"></i>
+                                        </div>
+                                        <span class="tech-name">Bootstrap 5</span>
+                                    </div>
+                                    <div class="tech-item">
+                                        <div class="tech-icon">
+                                            <i class="fas fa-mobile-alt"></i>
+                                        </div>
+                                        <span class="tech-name">Responsive Design</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Gallery -->
+                    <div class="project-gallery">
+                        <div class="gallery-header">
+                            <h3>Project Gallery</h3>
+                            <span class="gallery-count">4 Images</span>
+                        </div>
+                        <div class="gallery-grid">
+                            <div class="gallery-item large" onclick="openLightbox('images/projects1.png')">
+                                <img src="images/propertyweb/pro3.png" alt="Property Website Homepage">
+                                <div class="gallery-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <div class="gallery-item" onclick="openLightbox('images/project-detail1.jpg')">
+                                <img src="images/propertyweb/pro.png" alt="Property Listing Page">
+                                <div class="gallery-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <div class="gallery-item" onclick="openLightbox('images/project-detail2.jpg')">
+                                <img src="images/propertyweb/pro1.png" alt="Contact Page">
+                                <div class="gallery-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Video -->
+                    <div class="project-video">
+                        <h3 style="color: #ffffff; margin-bottom: 20px; font-size: 24px;">Project Walkthrough</h3>
+                        <div class="video-container">
+                            <video id="projectVideo" poster="images/propertyweb/pro3.png">
+                                <source src="images/propertyweb/property.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-overlay" onclick="playVideo()">
+                                <div class="play-btn">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Features -->
+                    <div class="project-features">
+                        <h3 style="color: #ffffff; margin-bottom: 30px; font-size: 24px;">Key Features</h3>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <h4>Fully Responsive</h4>
+                                <p>Adapts perfectly to all screen sizes from desktop to mobile devices with optimized layouts for each breakpoint.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <h4>Property Search</h4>
+                                <p>Advanced filtering system allowing users to search properties by location, price, bedrooms, and amenities.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-images"></i>
+                                </div>
+                                <h4>Image Gallery</h4>
+                                <p>High-quality property images with lightbox gallery and multiple viewing options for better user experience.</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <h4>Contact Forms</h4>
+                                <p>Interactive contact forms with real-time validation and automated response system for lead generation.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="project-navigation">
+                        <a href="project.html" class="nav-btn prev">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Back to Projects</span>
+                        </a>
+                        <a href="project2.html" class="nav-btn">
+                            <span>Next Project</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="lightbox-modal">
+        <div class="lightbox-content">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <img id="lightboxImage" class="lightbox-img" src="" alt="">
+            <div class="lightbox-nav">
+                <button class="lightbox-nav-btn" onclick="prevImage()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="lightbox-nav-btn" onclick="nextImage()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Follow Me</h3>
+                     <div class="footer-social">
+                        <a href="https://www.facebook.com/share/1AQt7hDaoz/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="c:\Users\acer\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\LocalState\sessions\36120AA5ACA2481639CF738D134EBF25786390CB\transfers\2026-03\WhatsApp Image 2026-01-14 at 09.56.26.jpeg" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/amashi.migara?igsh=cnY0em1tZHZiaTZj" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/migara-amashi-6ab1923a2?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://yourwebsite.com" target="_blank"> <i class="fas fa-globe"></i></a>
+
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links two-column">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="project.html">Project</a></li>
+                        <li><a href="work-experience.html">Experience</a></li>
+                        <li><a href="education.html">Education</a></li>
+                        <li><a href="Certifications.html">Certifications</a></li>
+                        <li><a href="skills.html">Skills</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> migaraamashi@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +94 76 715 6463</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Sri Lanka</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2024 Migara Amashi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+        const overlay = document.getElementById('overlay');
+        const dropdowns = document.querySelectorAll('.dropdown');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Mobile dropdown handling
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            const menu = dropdown.querySelector('.dropdown-menu');
+
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Close other open dropdowns
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.querySelector('.dropdown-menu').classList.remove('active');
+                        }
+                    });
+                    
+                    menu.classList.toggle('active');
+                }
+            });
+        });
+
+        // Close dropdowns when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 992) {
+                if (!e.target.closest('.dropdown')) {
+                    dropdowns.forEach(dropdown => {
+                        dropdown.querySelector('.dropdown-menu').classList.remove('active');
+                    });
+                }
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 992) {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                    
+                    // Close all dropdowns
+                    dropdowns.forEach(dropdown => {
+                        dropdown.querySelector('.dropdown-menu').classList.remove('active');
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Video Play Function
+        function playVideo() {
+            const video = document.getElementById('projectVideo');
+            const overlay = document.querySelector('.video-overlay');
+            
+            video.play();
+            overlay.style.display = 'none';
+            
+            // Show overlay again when video ends
+            video.addEventListener('ended', function() {
+                overlay.style.display = 'flex';
+            });
+        }
+
+        // Pause video when modal closes
+        const video = document.getElementById('projectVideo');
+        video.addEventListener('play', function() {
+            document.querySelector('.video-overlay').style.display = 'none';
+        });
+
+        // Lightbox functionality
+        const images = [
+            'images/projects1.png',
+            'images/project-detail1.jpg',
+            'images/project-detail2.jpg',
+            'images/project-detail3.jpg'
+        ];
+        
+        let currentImageIndex = 0;
+
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightboxModal');
+            const lightboxImage = document.getElementById('lightboxImage');
+            
+            // Find the index of clicked image
+            currentImageIndex = images.indexOf(imageSrc);
+            if (currentImageIndex === -1) currentImageIndex = 0;
+            
+            lightboxImage.src = imageSrc;
+            lightbox.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightboxModal');
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            document.getElementById('lightboxImage').src = images[currentImageIndex];
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            document.getElementById('lightboxImage').src = images[currentImageIndex];
+        }
+
+        // Close lightbox with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+            if (e.key === 'ArrowRight') {
+                nextImage();
+            }
+            if (e.key === 'ArrowLeft') {
+                prevImage();
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href').startsWith('#') && this.getAttribute('href').length > 1) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        if (window.innerWidth <= 992) {
+                            menuToggle.classList.remove('active');
+                            navLinks.classList.remove('active');
+                            overlay.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Add active class to current nav item
+        const sections = document.querySelectorAll('section[id]');
+        const navLinksAll = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinksAll.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

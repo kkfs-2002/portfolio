@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Portfolio | Front-End Web Development Certificate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Fixed Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: transparent;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(123, 128, 164, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 12px 0;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #3498db;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            font-size: 15px;
+            transition: 0.3s;
+            padding: 5px 0;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #020f1d;
+            padding: 10px 0;
+            min-width: 180px;
+            display: none;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 999;
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            transition: background 0.3s;
+            font-size: 14px;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #1e90ff;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Page Header */
+        .page-header {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(48, 42, 111, 0.9), rgba(48, 42, 111, 0.9)), 
+                        url("images/cet2.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            margin-top: 0;
+            padding-top: 80px;
+        }
+
+        .page-header .content {
+            position: relative;
+            z-index: 1;
+            padding: 0 15px;
+            max-width: 95%;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            animation: fadeInDown 1s ease;
+            line-height: 1.3;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .page-header p a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #fff;
+            padding-bottom: 3px;
+            transition: 0.3s;
+        }
+
+        .page-header p a:hover {
+            color: #3498db;
+            border-color: #3498db;
+        }
+
+        /* Certificate Details Section */
+        .certificate-details {
+            padding: 40px 0;
+            background-color: #010521;
+            min-height: calc(100vh - 80px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .section-title .highlight {
+            color: #3498db;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #3498db;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .back-btn:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateX(-5px);
+        }
+
+        /* Certificate Grid */
+        .certificate-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Certificate Image Section */
+        .certificate-image-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .certificate-preview {
+            width: 100%;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 2px solid rgba(52, 152, 219, 0.3);
+        }
+
+        .certificate-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .certificate-preview img:hover {
+            transform: scale(1.03);
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Certificate Details Section */
+        .certificate-details-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid rgba(52, 152, 219, 0.2);
+        }
+
+        .certificate-header {
+            margin-bottom: 25px;
+        }
+
+        .certificate-title {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 8px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .certificate-issuer {
+            font-size: 18px;
+            color: #3498db;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .certificate-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .meta-item {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        .certificate-description {
+            color: #e0e0e0;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        /* Skills Learned */
+        .skills-learned {
+            margin-top: 25px;
+        }
+
+        .skills-learned h3 {
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(52, 152, 219, 0.5);
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .skills-list li {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .skills-list li:hover {
+            background: rgba(52, 152, 219, 0.1);
+            transform: translateX(5px);
+        }
+
+        .skills-list li i {
+            color: #3498db;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        /* Course Content */
+        .course-content {
+            margin-top: 30px;
+        }
+
+        .course-content h3 {
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(52, 152, 219, 0.5);
+        }
+
+        .content-list {
+            list-style: none;
+            counter-reset: course-counter;
+        }
+
+        .content-list li {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 15px 12px 45px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            color: #e0e0e0;
+            position: relative;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .content-list li:hover {
+            background: rgba(52, 152, 219, 0.1);
+            transform: translateX(5px);
+        }
+
+        .content-list li::before {
+            counter-increment: course-counter;
+            content: counter(course-counter);
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 25px;
+            height: 25px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Verification Info */
+        .verification-info {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+        }
+
+        .verification-info h3 {
+            color: #fff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+        }
+
+        .verification-info p {
+            color: #e0e0e0;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .verification-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .verification-link:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation Arrows */
+        .certificate-navigation {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: rgba(52, 152, 219, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .nav-arrow:hover {
+            background: rgba(52, 152, 219, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .nav-arrow.next:hover {
+            transform: translateX(5px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000000;
+            color: #fff;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            width: 100%;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 35px;
+            height: 2px;
+            background-color: #3498db;
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 16px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #3498db;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid #3a506b;
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        /* Quick Links - Two Columns */
+        .footer-links.two-column {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 20px;
+            row-gap: 8px;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(2, 15, 29, 0.98);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            padding: 80px 20px 40px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            width: 100%;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 10px;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .mobile-nav-links a:hover,
+        .mobile-nav-links a.active {
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+        }
+
+        .mobile-dropdown-menu {
+            display: none;
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        .mobile-dropdown-menu.active {
+            display: block;
+        }
+
+        .mobile-dropdown-menu li a {
+            font-size: 16px;
+            padding: 10px 15px;
+        }
+
+        .mobile-dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .mobile-dropdown-toggle i {
+            transition: transform 0.3s;
+        }
+
+        .mobile-dropdown-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 576px) {
+            .skills-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .certificate-navigation {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 0 20px;
+            }
+            
+            .page-header {
+                height: 350px;
+                padding-top: 100px;
+            }
+            
+            .page-header h1 {
+                font-size: 42px;
+            }
+            
+            .page-header p {
+                font-size: 18px;
+            }
+            
+            .certificate-details {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 32px;
+                margin-bottom: 50px;
+            }
+            
+            .certificate-grid {
+                flex-direction: row;
+                gap: 40px;
+            }
+            
+            .certificate-image-section {
+                flex: 1;
+                padding: 30px;
+            }
+            
+            .certificate-details-section {
+                flex: 1;
+                padding: 30px;
+            }
+            
+            .certificate-preview {
+                height: 350px;
+            }
+            
+            .certificate-title {
+                font-size: 28px;
+            }
+            
+            .certificate-issuer {
+                font-size: 20px;
+            }
+            
+            .meta-item {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+            
+            .certificate-description {
+                font-size: 16px;
+            }
+            
+            .skills-learned h3,
+            .course-content h3 {
+                font-size: 22px;
+            }
+            
+            .skills-list li,
+            .content-list li {
+                font-size: 15px;
+            }
+            
+            .footer-content {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .footer-column {
+                flex: 1;
+                min-width: 250px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .nav-links li {
+                margin-left: 25px;
+            }
+            
+            .nav-links a {
+                font-size: 16px;
+            }
+            
+            .page-header {
+                height: 400px;
+                padding-top: 120px;
+            }
+            
+            .certificate-grid {
+                gap: 50px;
+            }
+            
+            .certificate-preview {
+                height: 400px;
+            }
+            
+            .skills-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .navbar {
+                justify-content: flex-start;
+                padding-left: 20px;
+            }
+            
+            .logo {
+                margin-left: 0;
+            }
+            
+            .certificate-preview {
+                height: 250px;
+            }
+            
+            .certificate-title {
+                font-size: 22px;
+            }
+            
+            .certificate-issuer {
+                font-size: 17px;
+            }
+            
+            .footer-links.two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-header {
+                height: 280px;
+                padding-top: 70px;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .page-header p {
+                font-size: 14px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+                margin-bottom: 35px;
+            }
+            
+            .certificate-preview {
+                height: 220px;
+            }
+            
+            .certificate-image-section,
+            .certificate-details-section {
+                padding: 20px;
+            }
+            
+            .certificate-title {
+                font-size: 20px;
+            }
+            
+            .certificate-issuer {
+                font-size: 16px;
+            }
+            
+            .certificate-meta {
+                gap: 8px;
+            }
+            
+            .meta-item {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+            
+            .certificate-description {
+                font-size: 14px;
+            }
+            
+            .skills-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .verification-info {
+                padding: 15px;
+            }
+            
+            .verification-info h3 {
+                font-size: 17px;
+            }
+            
+            .verification-info p {
+                font-size: 13px;
+            }
+            
+            .verification-link {
+                font-size: 13px;
+                padding: 6px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 24px;
+            }
+            
+            .certificate-preview {
+                height: 200px;
+            }
+            
+            .download-btn {
+                padding: 12px;
+                font-size: 15px;
+            }
+            
+            .back-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+            
+            .nav-arrow {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .footer-social a {
+                width: 35px;
+                height: 35px;
+                font-size: 15px;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Touch-friendly adjustments */
+        button, 
+        .certificate-card, 
+        .platform-item,
+        .download-btn,
+        .back-btn,
+        .nav-arrow {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:active, 
+        .certificate-card:active, 
+        .platform-item:active,
+        .download-btn:active,
+        .back-btn:active,
+        .nav-arrow:active {
+            transform: scale(0.98);
+        }
+
+        /* Improve touch scrolling */
+        .certificate-details,
+        .mobile-menu {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Prevent text size adjustment on mobile */
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* Certificate card touch feedback */
+        .certificate-preview:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a href="index.html" class="logo">Portfolio<span>.</span></a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="dropdown">
+                        <a href="#">Projects</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="project.html">Project</a></li>
+                            <li><a href="project1.html">Project 01</a></li>
+                            <li><a href="project2.html">Project 02</a></li>
+                            <li><a href="project3.html">Project 03</a></li>
+                            <li><a href="project4.html">Project 04</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="work-experience.html">Experience</a></li>
+                    <li><a href="education.html">Education</a></li>
+                    <li class="dropdown">
+                        <a href="#">Certifications <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="Certifications.html">Certifications</a></li>
+                            <li><a href="certification1.html">Certification 1</a></li>
+                            <li><a href="certification2.html">Certification 2</a></li>
+                            <li><a href="certification3.html">Certification 3</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="skills.html">Skills</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li>
+                <div class="mobile-dropdown-toggle" id="projectsDropdown">
+                    <a href="project.html">Projects</a>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="mobile-dropdown-menu" id="projectsMenu">
+                    <li><a href="project1.html">Project 01</a></li>
+                    <li><a href="project2.html">Project 02</a></li>
+                    <li><a href="project3.html">Project 03</a></li>
+                    <li><a href="project4.html">Project 04</a></li>
+                     <li><a href="project5.html">Project 05</a></li>
+                </ul>
+            </li>
+            <li><a href="work-experience.html">Experience</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li>
+                <div class="mobile-dropdown-toggle" id="certificationsDropdown">
+                    <a href="Certifications.html">Certifications</a>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="mobile-dropdown-menu" id="certificationsMenu">
+                    <li><a href="certification1.html">Certification 1</a></li>
+                    <li><a href="certification2.html">Certification 2</a></li>
+                    <li><a href="certification3.html">Certification 3</a></li>
+                </ul>
+            </li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="page-header">
+        <div class="content">
+            <h1>Front-End Web Development</h1>
+            <p><a href="index.html">Home</a> > <a href="certifications.html">Certifications</a> > Certificate Details</p>
+        </div>
+    </section>
+
+    <!-- Certificate Details Section -->
+    <section class="certificate-details">
+        <div class="container">
+            <a href="certifications.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to All Certifications
+            </a>
+            
+            <div class="certificate-grid">
+                <!-- Certificate Image Section -->
+                <div class="certificate-image-section">
+                    <div class="certificate-preview">
+                        <img src="images/mo2.png" alt="Front-End Web Development Certificate">
+                    </div>
+                    <button class="download-btn" onclick="downloadCertificate()">
+                        <i class="fas fa-download"></i> Download Certificate
+                    </button>
+                </div>
+
+                <!-- Certificate Details -->
+                <div class="certificate-details-section">
+                    <div class="certificate-header">
+                        <h2 class="certificate-title">Front-End Web Development</h2>
+                        <h3 class="certificate-issuer">University of Moratuwa</h3>
+                        <div class="certificate-meta">
+                            <span class="meta-item">Issued: 2025</span>
+                            <span class="meta-item">Advanced Course</span>
+                            <span class="meta-item">10 Weeks</span>
+                            <span class="meta-item">Intermediate Level</span>
+                        </div>
+                        <p class="certificate-description">
+                            Advanced front-end development course focusing on modern JavaScript, React.js, and contemporary 
+                            web development tools. The course provided hands-on experience with real-world projects, 
+                            emphasizing best practices in code architecture, performance optimization, and responsive design.
+                        </p>
+                    </div>
+
+                    <!-- Skills Learned -->
+                    <div class="skills-learned">
+                        <h3>Skills Acquired</h3>
+                        <ul class="skills-list">
+                            <li><i class="fas fa-check-circle"></i> Advanced JavaScript ES6+</li>
+                            <li><i class="fas fa-check-circle"></i> React.js Framework</li>
+                            <li><i class="fas fa-check-circle"></i> Responsive Design</li>
+                            <li><i class="fas fa-check-circle"></i> Web Performance Optimization</li>
+                            <li><i class="fas fa-check-circle"></i> Git Version Control</li>
+                            <li><i class="fas fa-check-circle"></i> API Integration</li>
+                        </ul>
+                    </div>
+
+                    <!-- Course Content -->
+                    <div class="course-content">
+                        <h3>Course Content</h3>
+                        <ul class="content-list">
+                            <li>Advanced JavaScript Concepts</li>
+                            <li>React.js Fundamentals</li>
+                            <li>Component Lifecycle</li>
+                            <li>State Management</li>
+                            <li>Routing and Navigation</li>
+                            <li>API Integration</li>
+                            <li>Performance Optimization</li>
+                            <li>Deployment Strategies</li>
+                        </ul>
+                    </div>
+
+                    <!-- Verification Info -->
+                    <div class="verification-info">
+                        <h3><i class="fas fa-shield-alt"></i> Certificate Verification</h3>
+                        <p><strong>Issuing Authority:</strong> University of Moratuwa - Faculty of Information Technology</p>
+                        <p><strong>Verification URL:</strong> https://open.uom.lk/verify</p>
+                        <p>This certificate can be verified online through the University of Moratuwa's official verification portal.</p>
+                        <a href="https://open.uom.lk/verify" class="verification-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Verify Certificate Online
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="certificate-navigation">
+                <a href="certification1.html" class="nav-arrow prev">
+                    <i class="fas fa-chevron-left"></i> Previous Certificate
+                </a>
+                <a href="certification2.html" class="nav-arrow next">
+                    Next Certificate <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Follow Me</h3>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/share/1AQt7hDaoz/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/amashi.migara?igsh=cnY0em1tZHZiaTZj" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/migara-amashi-6ab1923a2?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://yourwebsite.com" target="_blank"> <i class="fas fa-globe"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links two-column">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="project.html">Project</a></li>
+                        <li><a href="work-experience.html">Experience</a></li>
+                        <li><a href="education.html">Education</a></li>
+                        <li><a href="Certifications.html">Certifications</a></li>
+                        <li><a href="skills.html">Skills</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> migaraamashi@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +94 76 715 6463</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Sri Lanka</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2024 Migara Amashi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const projectsDropdown = document.getElementById('projectsDropdown');
+        const projectsMenu = document.getElementById('projectsMenu');
+        const certificationsDropdown = document.getElementById('certificationsDropdown');
+        const certificationsMenu = document.getElementById('certificationsMenu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        projectsDropdown.addEventListener('click', (e) => {
+            e.preventDefault();
+            projectsMenu.classList.toggle('active');
+            projectsDropdown.classList.toggle('active');
+        });
+
+        certificationsDropdown.addEventListener('click', (e) => {
+            e.preventDefault();
+            certificationsMenu.classList.toggle('active');
+            certificationsDropdown.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Download certificate function
+        function downloadCertificate() {
+            const link = document.createElement('a');
+            link.href = 'images/mo2.png';
+            link.download = 'Front-End_Web_Development_Certificate.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show download success message
+            alert('Downloading Front-End Web Development certificate...');
+        }
+
+        // Add active class to current nav item
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if(scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            // Set active page in mobile menu
+            const currentPage = window.location.pathname.split('/').pop();
+            const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+            mobileLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Prevent zoom on double-tap
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        // Touch feedback for buttons
+        document.querySelectorAll('.download-btn, .back-btn, .nav-arrow').forEach(btn => {
+            btn.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+                this.style.transition = 'transform 0.1s ease';
+            });
+            
+            btn.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+
+        // Handle download button click on mobile
+        document.querySelector('.download-btn').addEventListener('touchend', function(e) {
+            e.preventDefault();
+            downloadCertificate();
+        });
+    </script>
+</body>
+</html>

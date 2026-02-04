@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Portfolio | Education</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(48, 42, 111, 0.95);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            background: rgba(123, 128, 164, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            z-index: 1001;
+        }
+
+        .logo span {
+            color: #3498db;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            font-size: 15px;
+            transition: 0.3s;
+            padding: 8px 5px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a i {
+            font-size: 12px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(48, 42, 111, 0.98);
+            min-width: 180px;
+            list-style: none;
+            padding: 10px 0;
+            border-radius: 8px;
+            display: none;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown-menu li a {
+            padding: 10px 20px;
+            font-size: 14px;
+            display: block;
+            white-space: nowrap;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Page Header */
+        .page-header {
+            width: 100%;
+            min-height: 250px;
+            background: linear-gradient(135deg, rgba(48, 42, 111, 0.9), rgba(48, 42, 111, 0.7)), url('images/my3.jpeg') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            margin-top: 60px;
+            padding: 50px 20px;
+        }
+
+        .page-header .content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .page-header p a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #fff;
+            padding-bottom: 3px;
+            transition: 0.3s;
+        }
+
+        .page-header p a:hover {
+            color: #3498db;
+            border-color: #3498db;
+        }
+
+        /* Education Section */
+        .education {
+            padding: 60px 0;
+            background-color: #010521;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .section-title .highlight {
+            color: #3498db;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background-color: #3498db;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Education Grid */
+        .education-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .education-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(52, 152, 219, 0.1);
+        }
+
+        .education-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.3);
+            border-color: rgba(52, 152, 219, 0.3);
+        }
+
+        .education-image {
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .education-content {
+            padding: 25px;
+        }
+
+        .education-icon {
+            font-size: 32px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .education-content h3 {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .education-content h4 {
+            font-size: 16px;
+            color: #3498db;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .education-content .year {
+            display: inline-block;
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .education-content p {
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .education-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .education-content ul li {
+            color: #e0e0e0;
+            margin-bottom: 8px;
+            padding-left: 22px;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .education-content ul li:before {
+            content: '✓';
+            color: #3498db;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Image Gallery */
+        .gallery-title {
+            color: white;
+            margin: 50px 0 25px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000000;
+            color: #fff;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            width: 100%;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: #3498db;
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+            padding-left: 5px;
+        }
+
+        /* Quick Links - Two Columns */
+        .footer-links.two-column {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 16px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #3498db;
+            color: #fff;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #3a506b;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 85%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(48, 42, 111, 0.98);
+                flex-direction: column;
+                padding: 80px 20px 20px;
+                transition: 0.3s ease;
+                z-index: 1000;
+                overflow-y: auto;
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 8px 0;
+                width: 100%;
+            }
+
+            .nav-links a {
+                padding: 12px 15px;
+                font-size: 16px;
+                width: 100%;
+                border-radius: 5px;
+                justify-content: space-between;
+            }
+
+            .nav-links a:hover {
+                background: rgba(52, 152, 219, 0.1);
+            }
+
+            /* Dropdown menu in mobile */
+            .dropdown-menu {
+                position: static;
+                background: transparent;
+                box-shadow: none;
+                padding: 0;
+                margin-top: 5px;
+                display: none;
+                width: 100%;
+            }
+
+            .dropdown.active .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-menu li a {
+                padding: 10px 30px;
+                font-size: 14px;
+                background: rgba(0, 0, 0, 0.2);
+                margin: 2px 0;
+                border-radius: 5px;
+            }
+
+            .page-header {
+                min-height: 200px;
+                margin-top: 70px;
+                padding: 40px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .page-header p {
+                font-size: 15px;
+            }
+
+            .section-title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            .education-content {
+                padding: 20px;
+            }
+
+            .education-content h3 {
+                font-size: 18px;
+            }
+
+            .education-content h4 {
+                font-size: 15px;
+            }
+
+            .education-image {
+                height: 180px;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .gallery-item {
+                height: 180px;
+            }
+
+            .gallery-title {
+                font-size: 22px;
+                margin: 40px 0 20px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 992px) {
+            .nav-links li {
+                margin-left: 15px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+            .page-header h1 {
+                font-size: 36px;
+            }
+
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .image-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 993px) {
+            .nav-links li {
+                margin-left: 25px;
+            }
+
+            .education-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 40px;
+            }
+
+            .education-image {
+                height: 250px;
+            }
+
+            .education-content h3 {
+                font-size: 24px;
+            }
+
+            .education-content h4 {
+                font-size: 18px;
+            }
+
+            .image-gallery {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+
+            .gallery-item {
+                height: 250px;
+            }
+
+            .footer-content {
+                flex-direction: row;
+                gap: 40px;
+            }
+
+            .footer-column {
+                flex: 1;
+                min-width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                min-height: 180px;
+                padding: 30px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+            .page-header p {
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 22px;
+                margin-bottom: 25px;
+            }
+
+            .education-content h3 {
+                font-size: 17px;
+            }
+
+            .education-content h4 {
+                font-size: 14px;
+            }
+
+            .education-content ul li {
+                font-size: 13px;
+            }
+
+            .education-image {
+                height: 160px;
+            }
+
+            .gallery-title {
+                font-size: 20px;
+            }
+
+            .gallery-item {
+                height: 150px;
+            }
+
+            .footer-links.two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Overlay for mobile menu */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Additional Achievements Card */
+        .achievements-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 40px auto;
+            max-width: 800px;
+            border: 1px solid rgba(52, 152, 219, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .achievements-card h3 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .achievements-card ul li {
+            color: #e0e0e0;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .achievements-card ul li:before {
+            content: '•';
+            color: #3498db;
+            position: absolute;
+            left: 0;
+            font-size: 20px;
+        }
+
+        /* WhatsApp link fix */
+        .footer-social a[href*="whatsapp"] {
+            background: rgba(37, 211, 102, 0.1);
+        }
+
+        .footer-social a[href*="whatsapp"]:hover {
+            background: #25D366;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">Portfolio<span>.</span></a>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="dropdown" id="projectsDropdown">
+                        <a href="#">Projects <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="project.html">Project</a></li>
+                            <li><a href="project1.html">Project 01</a></li>
+                            <li><a href="project2.html">Project 02</a></li>
+                            <li><a href="project3.html">Project 03</a></li>
+                            <li><a href="project4.html">Project 04</a></li>
+                             <li><a href="project5.html">Project 05</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="work-experience.html">Experience</a></li>
+                    <li><a href="education.html">Education</a></li>
+                    <li class="dropdown" id="certificationsDropdown">
+                        <a href="#">Certifications <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="Certifications.html">Certifications</a></li>
+                            <li><a href="certification1.html">Certification 1</a></li>
+                            <li><a href="certification2.html">Certification 2</a></li>
+                            <li><a href="certification3.html">Certification 3</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="skills.html">Skills</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="overlay" id="overlay"></div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-header">
+        <div class="content">
+            <h1>Education</h1>
+            <p><a href="index.html">Home</a> > Education</p>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section education">
+        <div class="container">
+            <h2 class="section-title">My <span class="highlight">Education</span></h2>
+
+            <!-- Education Cards Grid -->
+            <div class="education-grid">
+                <!-- HND Card -->
+                <div class="education-card">
+                    <div class="education-image" style="background-image: url('images/sliate.jpg');"></div>
+                    <div class="education-content">
+                        <div class="education-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Higher National Diploma in Information Technology (HND)</h3>
+                        <h4>Sri Lanka Institute of Advanced Technological Education (SLIATE)</h4>
+                        <span class="year">2023 - 2025</span>
+                        <p>Comprehensive training in information technology with hands-on experience in software development, web technologies, and database management.</p>
+                        <ul>
+                            <li>Software Development Fundamentals</li>
+                            <li>Web Technologies & Databases</li>
+                            <li>Real-world Project Experience</li>
+                            <li>Object-Oriented Programming</li>
+                            <li>Network Fundamentals</li>
+                            <li>System Analysis & Design</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Achievements -->
+            <div class="achievements-card">
+                <h3><i class="fas fa-trophy"></i> Additional Qualifications & Achievements</h3>
+                <ul>
+                    <li><strong>Certificate in Web Development</strong> - University of Moratuwa (2024)</li>
+                    <li><strong>WordPress Certificate</strong> - Coursera (2024)</li>
+                    <li><strong>Best Final Year Project best resalts</strong> - SLIATE (2025)</li>
+                </ul>
+            </div>
+
+            <!-- Image Gallery -->
+            <h3 class="gallery-title">Academic Journey Gallery</h3>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <img src="images/sliate.jpg" alt="SLIATE Campus">
+                    <div class="gallery-overlay">
+                        <h4>SLIATE Campus</h4>
+                        <p>Where I pursued my HND</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/sliate1.jpg" alt="Study Environment">
+                    <div class="gallery-overlay">
+                        <h4>Study Environment</h4>
+                        <p>Modern facilities</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/sliate2.jpeg" alt="Project Presentation">
+                    <div class="gallery-overlay">
+                        <h4>Project Presentation</h4>
+                        <p>Academic achievements</p>
+                    </div>
+                </div>
+             
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Follow Me</h3>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/share/1AQt7hDaoz/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://wa.me/94767156463" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/amashi.migara?igsh=cnY0em1tZHZiaTZj" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/migara-amashi-6ab1923a2" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://yourwebsite.com" target="_blank"><i class="fas fa-globe"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links two-column">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="project.html">Project</a></li>
+                        <li><a href="work-experience.html">Experience</a></li>
+                        <li><a href="education.html">Education</a></li>
+                        <li><a href="Certifications.html">Certifications</a></li>
+                        <li><a href="skills.html">Skills</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> migaraamashi@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +94 76 715 6463</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Sri Lanka</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2024 Migara Amashi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        const overlay = document.getElementById('overlay');
+        const projectsDropdown = document.getElementById('projectsDropdown');
+        const certificationsDropdown = document.getElementById('certificationsDropdown');
+
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            menuToggle.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        overlay.addEventListener('click', function() {
+            navLinks.classList.remove('active');
+            overlay.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            projectsDropdown.classList.remove('active');
+            certificationsDropdown.classList.remove('active');
+        });
+
+        // Mobile dropdown handling
+        function handleMobileDropdown() {
+            if (window.innerWidth <= 768) {
+                projectsDropdown.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    // Close other dropdown if open
+                    if (this !== certificationsDropdown) {
+                        certificationsDropdown.classList.remove('active');
+                    }
+                });
+
+                certificationsDropdown.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    // Close other dropdown if open
+                    if (this !== projectsDropdown) {
+                        projectsDropdown.classList.remove('active');
+                    }
+                });
+
+                // Close dropdowns when clicking elsewhere
+                document.addEventListener('click', function(e) {
+                    if (!projectsDropdown.contains(e.target)) {
+                        projectsDropdown.classList.remove('active');
+                    }
+                    if (!certificationsDropdown.contains(e.target)) {
+                        certificationsDropdown.classList.remove('active');
+                    }
+                });
+            } else {
+                // Remove mobile event listeners for desktop
+                projectsDropdown.removeEventListener('click', arguments.callee);
+                certificationsDropdown.removeEventListener('click', arguments.callee);
+            }
+        }
+
+        // Initial setup
+        handleMobileDropdown();
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    
+                    // Close dropdowns
+                    projectsDropdown.classList.remove('active');
+                    certificationsDropdown.classList.remove('active');
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add active class to current nav item
+        const sections = document.querySelectorAll('section[id]');
+        const navLinksAll = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if(window.scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinksAll.forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Gallery image click functionality
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.querySelector('img').src;
+                // You can add a lightbox functionality here
+                console.log('Clicked image:', imgSrc);
+                // For now, just open image in new tab
+                window.open(imgSrc, '_blank');
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            handleMobileDropdown();
+            
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                overlay.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                projectsDropdown.classList.remove('active');
+                certificationsDropdown.classList.remove('active');
+            }
+        });
+
+        // Fix for WhatsApp link
+        const whatsappLinks = document.querySelectorAll('a[href*="whatsapp"]');
+        whatsappLinks.forEach(link => {
+            if (link.href.includes('c:')) {
+                link.href = 'https://wa.me/94767156463';
+            }
+        });
+    </script>
+</body>
+</html>

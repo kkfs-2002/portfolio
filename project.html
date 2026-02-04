@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Portfolio | Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Fixed Header with scroll effect */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(48, 42, 111, 0.9);
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(48, 42, 111, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            z-index: 1002;
+        }
+
+        .logo span {
+            color: #3498db;
+        }
+
+        /* Hamburger Menu Button */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1002;
+            background: none;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            font-size: 16px;
+            transition: 0.3s;
+            padding: 5px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #020f1d;
+            padding: 10px 0;
+            min-width: 180px;
+            display: none;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 999;
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #1e90ff;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 992px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(48, 42, 111, 0.98);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 100px 30px 30px;
+                transition: 0.5s ease;
+                z-index: 1001;
+                overflow-y: auto;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 0 0 20px 0;
+                width: 100%;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 10px 0;
+                font-size: 18px;
+                justify-content: space-between;
+            }
+
+            /* Dropdown for mobile */
+            .dropdown-menu {
+                position: static;
+                width: 100%;
+                background: rgba(2, 15, 29, 0.8);
+                box-shadow: none;
+                margin-top: 10px;
+                padding-left: 20px;
+                display: none;
+                border-radius: 5px;
+            }
+
+            .dropdown-menu.active {
+                display: block;
+            }
+
+            .dropdown:hover .dropdown-menu {
+                display: none;
+            }
+
+            .dropdown-menu li a {
+                padding: 8px 15px;
+                font-size: 16px;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            /* Overlay */
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 1000;
+            }
+
+            .overlay.active {
+                display: block;
+            }
+        }
+
+        /* Page Header / Banner */
+        .page-header {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            background: url('images/projects.webp') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            margin-top: 0;
+            padding-top: 100px;
+        }
+
+        .page-header .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(48, 42, 111, 0.7);
+        }
+
+        .page-header .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            font-size: 50px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .page-header p a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #fff;
+            padding-bottom: 3px;
+            transition: 0.3s;
+        }
+
+        .page-header p a:hover {
+            color: #3498db;
+            border-color: #3498db;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 120px 0 80px;
+            background-color: #010521;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: #3498db;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            background: transparent;
+            border: 2px solid #3498db;
+            color: #3498db;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #3498db;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.2);
+            border-color: #3498db;
+        }
+
+        .project-image {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-number {
+            display: inline-block;
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .project-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .project-content p {
+            color: #e0e0e0;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .project-tech span {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Project Details Modal */
+        .project-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #010521;
+            max-width: 900px;
+            margin: 50px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            animation: modalSlide 0.5s ease;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: #3498db;
+            transform: rotate(90deg);
+        }
+
+        /* Stats Section */
+        .project-stats {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 80px 0;
+            margin: 80px 0;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-box {
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            background: rgba(52, 152, 219, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 40px;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .stat-title {
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin: 80px 0;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            color: #e0e0e0;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #3498db;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: #3498db;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000000;
+            color: #fff;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: #3498db;
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 18px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #3498db;
+            color: #fff;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #3a506b;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Quick Links - Two Columns */
+        .footer-links.two-column {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 30px;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .modal-content {
+                margin: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 0;
+            }
+            
+            .page-header {
+                height: 350px;
+                padding-top: 120px;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .projects {
+                padding: 80px 0 60px;
+            }
+            
+            .filter-buttons {
+                gap: 10px;
+            }
+            
+            .filter-btn {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-links {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .page-header p {
+                font-size: 16px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-content h3 {
+                font-size: 20px;
+            }
+            
+            .cta-section h2 {
+                font-size: 28px;
+            }
+            
+            .filter-buttons {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .filter-btn {
+                white-space: nowrap;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Portfolio<span>.</span></a>
+                
+                <!-- Hamburger Menu -->
+                <button class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="dropdown">
+                        <a href="project.html">Projects <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="project.html">Project</a></li>
+                            <li><a href="project1.html">Project 01</a></li>
+                            <li><a href="project2.html">Project 02</a></li>
+                            <li><a href="project3.html">Project 03</a></li>
+                            <li><a href="project4.html">Project 04</a></li>
+                             <li><a href="project5.html">Project 05</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="work-experience.html">Experience</a></li>
+                    <li><a href="education.html">Education</a></li>
+                    <li class="dropdown">
+                        <a href="#">Certifications <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="Certifications.html">Certifications</a></li>
+                            <li><a href="certification1.html">Certification 1</a></li>
+                            <li><a href="certification2.html">Certification 2</a></li>
+                            <li><a href="certification3.html">Certification 3</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="skills.html">Skills</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                
+                <!-- Overlay for mobile -->
+                <div class="overlay" id="overlay"></div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Rest of your HTML content remains the same -->
+    <!-- Hero Section -->
+    <section class="page-header">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>My Projects</h1>
+            <p><a href="index.html">Home</a> > Projects</p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects">
+        <div class="container">
+            <h2 class="section-title">My <span style="color: #3498db;">Projects</span></h2>
+            
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="laravel">Laravel</button>
+                <button class="filter-btn" data-filter="php">PHP</button>
+                <button class="filter-btn" data-filter="web">Web Design</button>
+                <button class="filter-btn" data-filter="system">Systems</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="images/projects1.png" alt="Property Management Services Website">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-number">01</span>
+                        <h3>Property Management Services Website</h3>
+                        <p>
+                            Responsive landing page displaying apartment details such as price,
+                            size, and location using HTML, CSS, and JavaScript.
+                        </p>
+                        <div class="project-tech">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>Responsive</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="project1.html" class="project-link" onclick="showProjectDetails(1)">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card" data-category="laravel php system">
+                    <div class="project-image">
+                        <img src="images/projects.png" alt="Jewelry Management System">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-number">02</span>
+                        <h3>Jewelry Management System</h3>
+                        <p>
+                            Developed a Jewelry Management System using Laravel, PHP,
+                            MySQL, and Bootstrap with full CRUD operations.
+                        </p>
+                        <div class="project-tech">
+                            <span>Laravel</span>
+                            <span>PHP</span>
+                            <span>MySQL</span>
+                            <span>Bootstrap</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="project2.html" class="project-link" onclick="showProjectDetails(2)">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card" data-category="laravel php system">
+                    <div class="project-image">
+                        <img src="images/projects2.png" alt="Property Management System">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-number">03</span>
+                        <h3>Property Management System</h3>
+                        <p>
+                            Built a real-world Property Management System using
+                            Laravel and PHP with advanced features and reporting.
+                        </p>
+                        <div class="project-tech">
+                            <span>Laravel</span>
+                            <span>PHP</span>
+                            <span>MySQL</span>
+                            <span>CSS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="project3.html" class="project-link" onclick="showProjectDetails(3)">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card" data-category="laravel php system">
+                    <div class="project-image">
+                        <img src="images/projects3.png" alt="Company Management System">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-number">04</span>
+                        <h3>Company / Project Management System</h3>
+                        <p>
+                            Developed a Company Management System using Laravel and PHP
+                            with employee management and project tracking.
+                        </p>
+                        <div class="project-tech">
+                            <span>Laravel</span>
+                            <span>PHP</span>
+                            <span>MySQL</span>
+                            <span>Git</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="project4.html" class="project-link" onclick="showProjectDetails(4)">
+                                <i class="fas fa-eye"></i> View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 05 -->
+<div class="project-card" data-category="web design frontend">
+    <div class="project-image">
+        <img src="images/bubble/bubble1.png" alt="Bubble Tea Shop Website">
+    </div>
+
+    <div class="project-content">
+        <span class="project-number">05</span>
+
+        <h3>Bubble Tea Shop Website</h3>
+
+        <p>
+            Designed and developed a modern Bubble Tea Shop website featuring
+            an interactive menu, video gallery, and fully responsive layout
+            to enhance customer engagement.
+        </p>
+
+        <div class="project-tech">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>Responsive Design</span>
+        </div>
+
+        <div class="project-links">
+            <a href="project5.html" class="project-link" onclick="showProjectDetails(5)">
+                <i class="fas fa-eye"></i> View Details
+            </a>
+        </div>
+    </div>
+</div>
+
+            </div>
+
+            <!-- Project Stats -->
+            <div class="project-stats">
+                <div class="container">
+                    <div class="stats-container">
+                        <div class="stat-box">
+                            <div class="stat-number">4+</div>
+                            <div class="stat-title">Projects Completed</div>
+                        </div>
+                      
+                        <div class="stat-box">
+                            <div class="stat-number">4</div>
+                            <div class="stat-title">Technologies Used</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Details Modal -->
+    <div id="projectModal" class="project-modal">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </div>
+            <div id="modalContent">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Follow Me</h3>
+                  <div class="footer-social">
+                        <a href="https://www.facebook.com/share/1AQt7hDaoz/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="c:\Users\acer\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\LocalState\sessions\36120AA5ACA2481639CF738D134EBF25786390CB\transfers\2026-03\WhatsApp Image 2026-01-14 at 09.56.26.jpeg" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/amashi.migara?igsh=cnY0em1tZHZiaTZj" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/migara-amashi-6ab1923a2?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://yourwebsite.com" target="_blank"> <i class="fas fa-globe"></i></a>
+
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links two-column">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="project.html">Project</a></li>
+                        <li><a href="work-experience.html">Experience</a></li>
+                        <li><a href="education.html">Education</a></li>
+                        <li><a href="Certifications.html">Certifications</a></li>
+                        <li><a href="skills.html">Skills</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> migaraamashi@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +94 76 715 6463</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Sri Lanka</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2024 Migara Amashi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+        const overlay = document.getElementById('overlay');
+        const dropdowns = document.querySelectorAll('.dropdown');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking overlay
+        overlay.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Mobile dropdown handling
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            const menu = dropdown.querySelector('.dropdown-menu');
+
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Close other open dropdowns
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.querySelector('.dropdown-menu').classList.remove('active');
+                        }
+                    });
+                    
+                    menu.classList.toggle('active');
+                }
+            });
+        });
+
+        // Close dropdowns when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 992) {
+                if (!e.target.closest('.dropdown')) {
+                    dropdowns.forEach(dropdown => {
+                        dropdown.querySelector('.dropdown-menu').classList.remove('active');
+                    });
+                }
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 992) {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                    
+                    // Close all dropdowns
+                    dropdowns.forEach(dropdown => {
+                        dropdown.querySelector('.dropdown-menu').classList.remove('active');
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Project data
+        const projects = {
+            1: {
+                title: "Property Management Services Website",
+                image: "images/projects1.png",
+                description: "A fully responsive landing page developed to showcase property management services and apartment listings. The website features modern design with smooth animations and user-friendly interface.",
+                longDescription: `
+                    <p>This project involved creating a responsive website for a property management company. The main features include:</p>
+                    <ul>
+                        <li>Responsive design that works on all devices</li>
+                        <li>Property listing with filtering options</li>
+                        <li>Interactive contact form with validation</li>
+                        <li>Smooth animations and transitions</li>
+                        <li>Image galleries for property showcase</li>
+                    </ul>
+                    <p>The website was built using modern web technologies to ensure fast loading times and optimal user experience.</p>
+                `,
+                technologies: ["HTML5", "CSS3", "JavaScript", "Bootstrap"],
+                features: ["Responsive Design", "Property Filtering", "Contact Form", "Image Gallery"],
+                year: "2023",
+                status: "Completed"
+            },
+            2: {
+                title: "Jewelry Management System",
+                image: "images/projects.png",
+                description: "A comprehensive management system for jewelry stores with inventory management, sales tracking, and customer management features.",
+                longDescription: `
+                    <p>A full-stack web application developed using Laravel framework for jewelry store management.</p>
+                    <p>Key Features:</p>
+                    <ul>
+                        <li>Inventory management with categorization</li>
+                        <li>Sales and purchase tracking</li>
+                        <li>Customer management system</li>
+                        <li>User authentication and authorization</li>
+                        <li>Reporting and analytics dashboard</li>
+                        <li>Barcode generation for products</li>
+                    </ul>
+                    <p>The system uses MySQL database and follows MVC architecture for maintainable code structure.</p>
+                `,
+                technologies: ["Laravel", "PHP", "MySQL", "Bootstrap", "JavaScript"],
+                features: ["CRUD Operations", "User Authentication", "Reporting", "Inventory Management"],
+                year: "2024",
+                status: "Completed"
+            },
+            3: {
+                title: "Property Management System",
+                image: "images/projects2.png",
+                description: "A complete property management solution for real estate companies with tenant management, rent collection, and maintenance tracking.",
+                longDescription: `
+                    <p>Enterprise-level property management system developed using Laravel framework.</p>
+                    <p>Main Functionalities:</p>
+                    <ul>
+                        <li>Property listing and categorization</li>
+                        <li>Tenant management and lease tracking</li>
+                        <li>Automated rent collection system</li>
+                        <li>Maintenance request management</li>
+                        <li>Financial reporting and analytics</li>
+                        <li>Document management system</li>
+                    </ul>
+                    <p>The system features role-based access control and integrates with payment gateways for online transactions.</p>
+                `,
+                technologies: ["Laravel", "PHP", "MySQL", "jQuery", "CSS3"],
+                features: ["Tenant Management", "Rent Collection", "Maintenance Tracking", "Financial Reports"],
+                year: "2024",
+                status: "Completed"
+            },
+            4: {
+                title: "Company Management System",
+                image: "images/projects3.png",
+                description: "An internal management system for companies to handle employee data, project tracking, and task management efficiently.",
+                longDescription: `
+                    <p>Comprehensive company management system designed to streamline internal operations.</p>
+                    <p>System Modules:</p>
+                    <ul>
+                        <li>Employee management with profiles</li>
+                        <li>Project allocation and tracking</li>
+                        <li>Task management with deadlines</li>
+                        <li>Attendance and leave management</li>
+                        <li>Performance evaluation system</li>
+                        <li>Internal messaging system</li>
+                    </ul>
+                    <p>The system provides different access levels for admin, managers, and employees with detailed activity logs.</p>
+                `,
+                technologies: ["Laravel", "PHP", "MySQL", "Git", "REST API"],
+                features: ["Employee Management", "Project Tracking", "Task Assignment", "Attendance System"],
+                year: "2024",
+                status: "Completed"
+            }
+        };
+
+        // Filter projects
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                projectCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category').includes(filterValue)) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Show project details modal
+        function showProjectDetails(projectId) {
+            const project = projects[projectId];
+            const modal = document.getElementById('projectModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="project-image" style="height: 400px;">
+                    <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="project-content" style="padding: 40px;">
+                    <span class="project-number">0${projectId}</span>
+                    <h3 style="font-size: 28px; margin-bottom: 20px;">${project.title}</h3>
+                    
+                    <div style="display: flex; gap: 20px; margin-bottom: 30px;">
+                        <div style="background: rgba(52, 152, 219, 0.1); padding: 10px 20px; border-radius: 8px;">
+                            <strong style="color: #3498db;">Year:</strong> ${project.year}
+                        </div>
+                        <div style="background: rgba(52, 152, 219, 0.1); padding: 10px 20px; border-radius: 8px;">
+                            <strong style="color: #3498db;">Status:</strong> ${project.status}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="color: #ffffff; margin-bottom: 15px; font-size: 20px;">Project Description</h4>
+                        <div style="color: #e0e0e0; line-height: 1.8;">
+                            ${project.longDescription}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="color: #ffffff; margin-bottom: 15px; font-size: 20px;">Technologies Used</h4>
+                        <div class="project-tech">
+                            ${project.technologies.map(tech => `<span>${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <h4 style="color: #ffffff; margin-bottom: 15px; font-size: 20px;">Key Features</h4>
+                        <ul style="color: #e0e0e0; padding-left: 20px; line-height: 1.8;">
+                            ${project.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="project-links" style="justify-content: center;">
+                        <a href="#" class="project-link" style="background: #3498db; color: white;">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('projectModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href').startsWith('#') && this.getAttribute('href').length > 1) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        if (window.innerWidth <= 992) {
+                            menuToggle.classList.remove('active');
+                            navLinks.classList.remove('active');
+                            overlay.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Add active class to current nav item
+        const sections = document.querySelectorAll('section[id]');
+        const navLinksAll = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinksAll.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
